@@ -1,0 +1,45 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model MedicalRecord {
+  id        String     @id @default(cuid())
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  
+  // Patient info
+  patientName String
+  patientAge  Int?
+  patientGender String?
+  
+  // Medical record text
+  medicalContent String
+  
+  // Analysis results
+  hasHeartFailure     Boolean?
+  hasKidneyProblems   Boolean?
+  takesAntidepressants Boolean?
+  hasCancer           Boolean?
+  
+  // Confidence scores (0-1)
+  heartFailureScore     Float?
+  kidneyProblemsScore   Float?
+  antidepressantScore   Float?
+  cancerScore           Float?
+  
+  // Full analysis response
+  fullAnalysis String?
+  
+  // Model info
+  model String @default("claude-3-5-sonnet-20241022")
+  
+  @@index([createdAt])
+}

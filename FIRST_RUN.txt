@@ -1,0 +1,133 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                                                                            ║
+║                      🏥 MedicAI - PRIMEIRA EXECUÇÃO 🏥                     ║
+║                                                                            ║
+║              Bem-vindo! Siga estes passos para começar:                   ║
+║                                                                            ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+📋 PASSO 1: Configure a Chave da API
+─────────────────────────────────────────────────────────────────────────────
+1. Abra o arquivo: .env
+2. Encontre a linha: OPENAI_API_KEY=
+3. Substitua por sua chave do Claude (Anthropic)
+   
+   Obtenha em: https://console.anthropic.com/
+   
+   Exemplo:
+   OPENAI_API_KEY=sk-proj-sua-chave-aqui...
+
+⚠️  Nunca comite o arquivo .env no Git!
+
+
+🚀 PASSO 2: Inicie o Servidor
+─────────────────────────────────────────────────────────────────────────────
+Opção A - Setup Automático (RECOMENDADO):
+  $ ./setup.sh
+  
+Opção B - Manual:
+  $ npm install
+  $ npx prisma migrate dev
+  $ npm run dev
+
+
+🌐 PASSO 3: Acesse o Site
+─────────────────────────────────────────────────────────────────────────────
+Abra seu navegador em:
+  
+  http://localhost:3000
+
+
+📝 PASSO 4: Teste a Análise
+─────────────────────────────────────────────────────────────────────────────
+1. Na página inicial, veja o formulário "Enviar Prontuário"
+2. Preencha (opcional):
+   - Nome do paciente
+   - Idade
+   - Gênero
+3. Cole um prontuário médico no textarea
+4. Clique em "Analisar Prontuário"
+5. Aguarde a IA processar (alguns segundos)
+6. Veja os resultados com scores de confiança!
+
+Exemplo de prontuário para testar:
+──────────────────────────────────────
+Paciente: João da Silva
+Idade: 65 anos
+Gênero: Masculino
+
+Histórico Médico:
+- Diagnóstico Principal: Insuficiência Cardíaca Descompensada (ICD)
+- Medicações: Lisinopril 10mg, Furosemida 40mg, Sertraline 50mg
+- Exames: Função renal reduzida, Creatinina 2.1
+- Antecedentes: Diabetes tipo 2, Hipertensão
+- Oncologia: Sem história de câncer
+
+
+📂 PASSO 5: Explore o Histórico
+─────────────────────────────────────────────────────────────────────────────
+1. Clique em "Histórico" no menu superior
+2. Veja todas as análises realizadas
+3. Clique em "Ver" para expandir detalhes completos
+4. Visualize o prontuário original, resultados e confiança
+
+
+🔧 Comandos Úteis
+─────────────────────────────────────────────────────────────────────────────
+npm run dev           → Inicia servidor de desenvolvimento
+npm run build         → Cria build para produção
+npm run preview       → Preview da build de produção
+npx prisma studio    → Abre visualizador do banco de dados
+npx prisma migrate dev → Executa migrações
+
+
+❓ Perguntas Frequentes
+─────────────────────────────────────────────────────────────────────────────
+
+P: Onde fica minha API key?
+R: Em .env na raiz do projeto (não é commitada no Git)
+
+P: Onde os dados são armazenados?
+R: Em prisma/dev.db (banco SQLite local)
+
+P: Posso usar em produção?
+R: Sim! Use: npm run build && npm run preview
+
+P: Preciso de internet?
+R: Sim, para chamar a API do Claude. Dados locais em dev.db
+
+
+🚨 Avisos Importantes
+─────────────────────────────────────────────────────────────────────────────
+⚠️  Esta ferramenta é APENAS INFORMATIVA
+⚠️  Não substitui diagnóstico profissional
+⚠️  Sempre consulte um médico qualificado
+⚠️  Obtenha consentimento do paciente
+
+
+📚 Documentação Completa
+─────────────────────────────────────────────────────────────────────────────
+- README.md          → Documentação técnica completa
+- QUICKSTART.md      → Guia rápido
+- PROJECT_SUMMARY.md → Arquitetura e sumário
+
+
+💡 Estrutura do Projeto
+─────────────────────────────────────────────────────────────────────────────
+pages/                  → Páginas (análise e histórico)
+components/             → Componentes reutilizáveis
+server/                 → Backend (API endpoints)
+prisma/                 → Banco de dados
+layouts/                → Template de layout
+
+
+🎉 Pronto! Comece a usar agora!
+─────────────────────────────────────────────────────────────────────────────
+
+Qualquer dúvida, consulte a documentação ou issue no GitHub.
+
+Boa sorte! 🚀
+
+─────────────────────────────────────────────────────────────────────────────
+Criado em: October 17, 2025
+Status: ✅ Pronto para Produção
