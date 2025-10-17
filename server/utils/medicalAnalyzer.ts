@@ -1,4 +1,4 @@
-import Anthropic from '@anthropic-ai/sdk'
+import OpenAI from 'openai'
 
 interface AnalysisResult {
   hasHeartFailure: boolean
@@ -22,10 +22,23 @@ export async function analyzeMedicalRecord(
   const apiKey = config.openaiApiKey || process.env.OPENAI_API_KEY
 
   if (!apiKey) {
-    throw new Error('OpenAI API key not configured')
+    console.error('❌ API Key não configurado!')
+    console.error('Por favor, crie um arquivo .env com: OPENAI_API_KEY=sk-...')
+    throw new Error(
+      'API key não configurada. Adicione OPENAI_API_KEY ao arquivo .env'
+    )
   }
 
-  const client = new Anthropic({
+  // Validar formato da chave OpenAI
+  if (!apiKey.startsWith('sk-')) {
+    console.error('⚠️ API Key parecer estar em formato incorreto!')
+    console.error('Esperado: sk-xxxxxxx')
+    console.error('Recebido:', apiKey.substring(0, 10) + '...')
+  }
+
+  console.log('✅ API Key OpenAI encontrada:', apiKey.substring(0, 20) + '...')
+
+  const client = new OpenAI({
     apiKey,
   })
 
@@ -59,19 +72,18 @@ Important:
 - If information is not clear, use a lower score`
 
   try {
-    const message = await client.messages.create({
-      model: 'claude-3-5-sonnet-20241022',
-      max_tokens: 1024,
+    const message = await client.chat.completions.create({
+      model: 'gpt-4-turbo',
       messages: [
         {
           role: 'user',
           content: prompt,
         },
       ],
+      temperature: 0.7,
     })
 
-    const responseText =
-      message.content[0].type === 'text' ? message.content[0].text : ''
+    const responseText = message.choices[0].message.content || ''
 
     // Parse the JSON response
     let analysisData
@@ -83,7 +95,7 @@ Important:
       }
       analysisData = JSON.parse(jsonMatch[0])
     } catch (e) {
-      console.error('Failed to parse Claude response:', responseText)
+      console.error('Failed to parse OpenAI response:', responseText)
       throw new Error('Failed to parse AI analysis response')
     }
 
