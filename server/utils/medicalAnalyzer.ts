@@ -1,4 +1,4 @@
-import OpenAI from 'openai'
+import Anthropic from '@anthropic-ai/sdk'
 
 interface AnalysisResult {
   hasHeartFailure: boolean
@@ -25,7 +25,7 @@ export async function analyzeMedicalRecord(
     throw new Error('OpenAI API key not configured')
   }
 
-  const client = new OpenAI({
+  const client = new Anthropic({
     apiKey,
   })
 
@@ -83,7 +83,7 @@ Important:
       }
       analysisData = JSON.parse(jsonMatch[0])
     } catch (e) {
-      console.error('Failed to parse OpenAI response:', responseText)
+      console.error('Failed to parse Claude response:', responseText)
       throw new Error('Failed to parse AI analysis response')
     }
 
